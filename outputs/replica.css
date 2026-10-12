@@ -227,3 +227,73 @@
 /* Keep service icon rings circular even when card layout rules set a fixed flex basis. */
 .home-service-icon{box-sizing:border-box;width:106px;height:106px;min-width:106px;min-height:106px;flex:0 0 106px;border-radius:50%;overflow:visible}
 @media(max-width:600px){.home-service-icon{width:88px;height:88px;min-width:88px;min-height:88px;flex-basis:88px}}
+
+/* Final small-screen refinements shared across the site. */
+@media(max-width:650px){
+  html,body{max-width:100%;overflow-x:clip}
+  .wrap{width:calc(100% - 32px)}
+  .home-slider{width:calc(100% - 20px);min-height:410px;height:min(570px,calc(100svh - 90px));margin-top:10px}
+  .home-slide{padding:30px 46px 56px}
+  .home-slide-copy h2{font-size:clamp(29px,8.8vw,42px);overflow-wrap:anywhere}
+  .home-slide-copy>p:not(.eyebrow){font-size:13px;line-height:1.55}
+  .home-slide-arrow{width:42px;height:42px;font-size:32px}
+  .home-slide-prev{left:5px}.home-slide-next{right:5px}
+  .home-hero{padding:42px 0 48px}
+  .home-hero-grid{grid-template-columns:minmax(0,1fr);gap:28px}
+  .home-copy h1{font-size:clamp(42px,12vw,54px);overflow-wrap:anywhere}
+  .home-copy .hero-lead{font-size:14px;line-height:1.7}
+  .home-brand-card.home-doctor-card{height:auto;min-height:0;width:100%;max-width:none;padding:24px 20px 78px}
+  .home-doctor-profile{grid-template-columns:minmax(0,1fr);gap:18px;width:100%;max-width:430px;margin:0 auto}
+  .doctor-portrait{width:min(100%,220px);height:auto;aspect-ratio:4/5;justify-self:center;object-position:center 20%}
+  .doctor-role{font-size:10px;margin-bottom:8px}
+  .doctor-bio h2{font-size:clamp(25px,7vw,32px);line-height:1.08}
+  .doctor-credentials{font-size:12px;margin-bottom:9px}
+  .doctor-summary{font-size:14px;line-height:1.65}
+  .home-card-bottom{left:20px;right:20px;bottom:14px;gap:12px}
+  .home-card-bottom .doctor-card-arrow{width:40px;height:40px;flex:none}
+  .home-services{padding:58px 0 68px}
+  .home-services .home-section-title{display:flex;align-items:flex-end;gap:12px;margin-bottom:24px}
+  .home-services .home-section-title h2{font-size:clamp(34px,9vw,42px)}
+  .home-services .home-section-title>.text-link{font-size:10px;white-space:nowrap}
+  .home-service-grid{grid-template-columns:minmax(0,1fr);gap:12px}
+  .home-service{min-height:0;padding:24px 18px;border-radius:17px}
+  .home-service-main{min-height:54px}
+  .home-service-main h3{font-size:clamp(21px,6vw,27px)}
+  .home-service>p{flex:initial;font-size:14px;line-height:1.6}
+  .service-related{min-height:0;margin-top:16px;padding-top:0;gap:9px}
+  .service-related a{min-height:42px;padding:10px 14px;font-size:12px}
+  .home-section-title{flex-wrap:wrap}
+  .service-details-heading{display:block}
+  .service-detail-grid{grid-template-columns:minmax(0,1fr)}
+  .service-detail-card{min-height:0;padding:20px}
+  .service-detail-description{font-size:13px;line-height:1.7}
+  .service-detail-card h3{font-size:19px;margin:16px 0 12px;overflow-wrap:anywhere}
+  .service-detail-card>a{display:inline-block;min-height:42px;padding:10px 0}
+  .content-grid,.band-grid,.feature-grid,.contact-page-grid{grid-template-columns:minmax(0,1fr);gap:26px}
+  .content-visual{height:clamp(260px,78vw,360px);border-top-right-radius:48px}
+  .page-hero h1{font-size:clamp(39px,11vw,49px);overflow-wrap:anywhere}
+  .page-lead,.content-main p,.page-band p:not(.eyebrow){font-size:14px;line-height:1.75}
+  .page-cta-inner{align-items:stretch}
+  .page-cta .button{min-height:46px;justify-content:center}
+  .contact-phone{font-size:clamp(20px,6vw,24px);overflow-wrap:anywhere}
+  .map-frame{width:100%;max-width:100%}
+  .feedback-grid,.journal-preview-grid,.blog-grid,.service-list-grid{grid-template-columns:minmax(0,1fr)}
+  .feedback-card{min-height:0}
+  .video-gallery-description{align-items:stretch}
+  .video-gallery-play{min-height:44px;justify-content:center}
+  .video-gallery-controls{gap:12px}
+  .video-gallery-arrow{width:44px;height:44px}
+  .main-nav .nav-item{min-width:0}
+  .main-nav .nav-category-link,.main-nav .nav-dropdown-toggle{min-height:44px}
+  .footer-bottom{padding-bottom:54px}
+}
+@media(max-width:380px){
+  .wrap{width:calc(100% - 28px)}
+  .home-slide{padding-right:39px;padding-left:39px}
+  .home-slide-copy h2{font-size:29px}
+  .hero-actions{align-items:flex-start;flex-wrap:wrap}
+  .home-services .home-section-title{display:block}
+  .home-services .home-section-title>.text-link{display:inline-block;margin-top:14px}
+  .contact-primary{padding:18px}
+  .appointment-reflective{height:680px!important}
+}
