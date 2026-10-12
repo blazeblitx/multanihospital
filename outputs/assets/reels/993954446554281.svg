@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 1136" role="img" aria-label="Illustrated GFC hair restoration cover">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#073c64"/><stop offset=".52" stop-color="#0784b6"/><stop offset="1" stop-color="#b4f0ed"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#d7fffa" stop-opacity=".72"/><stop offset="1" stop-color="#d7fffa" stop-opacity="0"/></radialGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f2d8c4"/><stop offset="1" stop-color="#c69f87"/></linearGradient>
+  </defs>
+  <rect width="640" height="1136" fill="url(#bg)"/>
+  <circle cx="312" cy="430" r="318" fill="url(#glow)"/>
+  <ellipse cx="320" cy="566" rx="217" ry="282" fill="url(#skin)" stroke="#f6eadd" stroke-width="5"/>
+  <path d="M106 520c-9-141 69-278 211-286 144-8 221 108 218 248-59-73-105-82-149-68-44 13-77 7-116-18-59-38-105 14-164 124z" fill="#153c55"/>
+  <path d="M151 432c31-88 86-134 166-138M191 390c29-70 77-105 141-108M250 367c22-56 58-84 108-86M326 364c19-48 49-70 87-68M392 383c14-37 36-53 65-49" fill="none" stroke="#d5f9f5" stroke-opacity=".82" stroke-width="7" stroke-linecap="round"/>
+  <path d="M230 558c28-20 56-20 83 0M353 558c28-20 56-20 83 0" fill="none" stroke="#28536a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M298 623c23 18 47 18 70 0" fill="none" stroke="#a46f69" stroke-width="7" stroke-linecap="round"/>
+  <path d="M320 700c-24 55-28 95-13 120 10 17 26 17 36 0 15-25 11-65-13-120z" fill="#e9ffff" fill-opacity=".78" stroke="#b9fff4" stroke-width="4"/>
+  <circle cx="320" cy="825" r="14" fill="#a5fff5"/><circle cx="320" cy="825" r="44" fill="none" stroke="#cafff6" stroke-opacity=".75" stroke-width="3"/>
+  <path d="M120 230c34-37 74-58 120-64M520 257c-31-43-68-69-111-79" fill="none" stroke="#c6faff" stroke-opacity=".55" stroke-width="3" stroke-dasharray="5 12"/>
+  <rect x="52" y="882" width="536" height="170" rx="28" fill="#073f68" fill-opacity=".9" stroke="#a9e7f1" stroke-opacity=".6"/>
+  <text x="84" y="950" fill="#83e8f3" font-family="Arial,sans-serif" font-size="23" font-weight="700" letter-spacing="4">HAIR RESTORATION</text>
+  <text x="84" y="1008" fill="#fff" font-family="Arial,sans-serif" font-size="38" font-weight="700">GFC therapy</text>
+</svg>
