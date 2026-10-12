@@ -297,3 +297,5 @@
   .contact-primary{padding:18px}
   .appointment-reflective{height:680px!important}
 }
+/* Service cards use the title as their sole link to a detail page. */
+.service-detail-card>a{display:none}
