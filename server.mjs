@@ -24,8 +24,71 @@ const sendJson = (res, status, data) => {
 
 const instructions = `You are an AI clinic information assistant for Multani Plastic Surgery Centre in Jalandhar, India. Clearly identify yourself as AI if asked. Provide general educational information and help visitors navigate the website only. You are not a clinician. Do not diagnose, triage except to advise immediate emergency help, prescribe or adjust medicines, assess someone's suitability for surgery, interpret photos or test results, promise outcomes, or invent clinic facts. For personal medical decisions, direct the visitor to contact the clinic/surgeon. For potentially urgent or life-threatening symptoms, advise seeking emergency care now and not waiting for this chat. Do not request personal or sensitive health data. Use only these verified site details when relevant: phone +91 98729 79616; alternate phone +91 98722 48616; email jangpreetsingh@yahoo.co.in; address SCO 97, Urban Estate Phase II Market, opposite petrol pump, Jalandhar, Punjab 144005. Published site sections include hair restoration, cosmetic surgery, reconstructive surgery, laser treatments, videos, and articles. Keep replies concise, calm, and clear.`;
 
+let socialFeedCache = { expiresAt: 0, value: null };
+
+async function fetchGraph(path, token, version) {
+  const url = new URL(`https://graph.facebook.com/${version}/${path}`);
+  url.searchParams.set('access_token', token);
+  const response = await fetch(url, { signal: AbortSignal.timeout(8000) });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error('Social feed request failed');
+  return data;
+}
+
+async function getSocialFeed() {
+  const pageId = process.env.META_PAGE_ID;
+  const token = process.env.META_PAGE_ACCESS_TOKEN;
+  if (!pageId || !token) return { connected: false, posts: [] };
+  if (socialFeedCache.value && socialFeedCache.expiresAt > Date.now()) return socialFeedCache.value;
+
+  const version = (process.env.META_GRAPH_API_VERSION || 'v26.0').replace(/^v?/, 'v');
+  const pagePath = `${encodeURIComponent(pageId)}/posts?fields=id,message,permalink_url,created_time,full_picture&limit=8`;
+  try {
+    const pagePromise = fetchGraph(pagePath, token, version);
+    const pageInfoPromise = fetchGraph(`${encodeURIComponent(pageId)}?fields=instagram_business_account`, token, version).catch(() => ({}));
+    const [pageData, pageInfo] = await Promise.all([pagePromise, pageInfoPromise]);
+    const igUserId = process.env.META_IG_USER_ID || pageInfo.instagram_business_account?.id;
+    const instagramData = igUserId
+      ? await fetchGraph(`${encodeURIComponent(igUserId)}/media?fields=id,caption,media_type,media_url,permalink,timestamp,thumbnail_url&limit=8`, token, version).catch(() => ({ data: [] }))
+      : { data: [] };
+    const facebookPosts = (pageData.data || []).map(post => ({
+      id: `facebook-${post.id}`, platform: 'Facebook', caption: post.message || 'A recent update from the clinic.',
+      url: post.permalink_url, timestamp: post.created_time, image: post.full_picture || ''
+    }));
+    const instagramPosts = (instagramData.data || []).map(post => ({
+      id: `instagram-${post.id}`, platform: 'Instagram', caption: post.caption || 'A recent update from the clinic.',
+      url: post.permalink, timestamp: post.timestamp,
+      image: post.media_type === 'VIDEO' ? (post.thumbnail_url || '') : (post.media_url || '')
+    }));
+    const value = {
+      connected: true,
+      profiles: {
+        facebook: 'https://www.facebook.com/multaniplasticsurgerycentre/',
+        instagram: 'https://www.instagram.com/multaniplasticsurgerycentre/'
+      },
+      posts: [...facebookPosts, ...instagramPosts]
+        .filter(post => post.url && post.timestamp)
+        .sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
+        .slice(0, 12)
+    };
+    socialFeedCache = { value, expiresAt: Date.now() + 5 * 60 * 1000 };
+    return value;
+  } catch {
+    if (socialFeedCache.value) return socialFeedCache.value;
+    throw new Error('Social updates are temporarily unavailable.');
+  }
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url || '/', 'http://localhost');
+  if (req.method === 'GET' && url.pathname === '/api/social-feed') {
+    try {
+      const feed = await getSocialFeed();
+      return sendJson(res, 200, feed);
+    } catch {
+      return sendJson(res, 502, { connected: false, posts: [], error: 'Social updates are temporarily unavailable.' });
+    }
+  }
   if (req.method === 'POST' && url.pathname === '/api/ai-chat') {
     if (!process.env.OPENAI_API_KEY) return sendJson(res, 503, { error:'The AI assistant is not connected yet. Please call the clinic directly.' });
     let raw = '';
