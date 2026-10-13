@@ -76,20 +76,31 @@
     const instagram = root.querySelector('[data-social-profile="instagram"]');
     if (facebook) facebook.href = safeExternalUrl(profiles.facebook) || profiles.facebook || 'https://www.facebook.com/multaniplasticsurgerycentre/';
     if (instagram) instagram.href = safeExternalUrl(profiles.instagram) || profiles.instagram || 'https://www.instagram.com/multaniplasticsurgerycentre/';
-    const grid = root.querySelector('[data-social-posts]');
+    const grids = {
+      facebook: root.querySelector('[data-social-posts="facebook"]'),
+      instagram: root.querySelector('[data-social-posts="instagram"]')
+    };
     const status = root.querySelector('[data-social-status]');
-    if (!feed?.connected) {
-      status.textContent = 'Follow the clinic on Facebook or Instagram for its latest updates.';
-      return;
-    }
-    if (!posts.length) {
-      status.textContent = 'There are no recent public posts to show right now. Follow the clinic for updates.';
-      return;
-    }
-    status.textContent = 'Recent public posts from the clinic’s Facebook Page and Instagram account.';
-    posts.forEach(post => {
-      const card = createPostCard(post);
-      if (card) grid.append(card);
+    if (!feed?.connected) status.textContent = 'Follow the clinic on Facebook or Instagram for its latest updates. Recent post previews will appear here when the feeds are connected.';
+    else if (!posts.length) status.textContent = 'There are no recent public posts to preview right now. Follow the clinic for updates.';
+    else status.textContent = 'Recent public posts from the clinic’s Facebook Page and Instagram account.';
+
+    Object.entries(grids).forEach(([platform, grid]) => {
+      if (!grid) return;
+      grid.replaceChildren();
+      const matches = posts.filter(post => String(post.platform || '').toLowerCase().includes(platform)).slice(0, 2);
+      matches.forEach(post => {
+        const card = createPostCard(post);
+        if (card) grid.append(card);
+      });
+      if (!matches.length) {
+        const empty = document.createElement('div');
+        empty.className = 'social-preview-empty';
+        empty.textContent = feed?.connected
+          ? `No recent public ${platform === 'facebook' ? 'Facebook' : 'Instagram'} posts to preview.`
+          : 'Recent clinic posts will appear here.';
+        grid.append(empty);
+      }
     });
   };
 

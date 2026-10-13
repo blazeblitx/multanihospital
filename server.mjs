@@ -90,7 +90,7 @@ const server = http.createServer(async (req, res) => {
     }
   }
   if (req.method === 'POST' && url.pathname === '/api/ai-chat') {
-    if (!process.env.OPENAI_API_KEY) return sendJson(res, 503, { error:'The AI assistant is not connected yet. Please call the clinic directly.' });
+    if (!process.env.GEMINI_API_KEY) return sendJson(res, 503, { error:'The AI assistant is not connected yet. Please call the clinic directly.' });
     let raw = '';
     try {
       for await (const chunk of req) {
@@ -102,16 +102,22 @@ const server = http.createServer(async (req, res) => {
       if (!Array.isArray(messages) || messages.length < 1 || messages.length > 8 || messages.some(m => !m || !['user','assistant'].includes(m.role) || typeof m.content !== 'string' || m.content.length > 1200)) {
         return sendJson(res, 400, { error:'Please send a shorter message and try again.' });
       }
-      const response = await fetch('https://api.openai.com/v1/responses', {
-        method:'POST', headers:{ 'Authorization':`Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type':'application/json' },
-        body:JSON.stringify({ model:process.env.OPENAI_MODEL || 'gpt-6-astra', instructions, input:messages.map(m => ({ role:m.role, content:[{ type:'input_text', text:m.content }] })), max_output_tokens:350, store:false })
+      const model = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+        method:'POST',
+        headers:{ 'x-goog-api-key':process.env.GEMINI_API_KEY, 'Content-Type':'application/json' },
+        body:JSON.stringify({
+          systemInstruction:{ parts:[{ text:instructions }] },
+          contents:messages.map(m => ({ role:m.role === 'assistant' ? 'model' : 'user', parts:[{ text:m.content }] })),
+          generationConfig:{ maxOutputTokens:350 }
+        })
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
-        console.error('OpenAI request failed with status', response.status);
+        console.error('Gemini request failed with status', response.status);
         return sendJson(res, 502, { error:'The AI assistant could not respond right now. Please try again or contact the clinic.' });
       }
-      const answer = (data.output || []).flatMap(item => item.content || []).filter(item => item.type === 'output_text').map(item => item.text).join('\n').trim();
+      const answer = (data.candidates || []).flatMap(candidate => candidate.content?.parts || []).map(part => part.text || '').join('\n').trim();
       if (!answer) return sendJson(res, 502, { error:'The AI assistant could not prepare a response. Please try again.' });
       return sendJson(res, 200, { answer });
     } catch {

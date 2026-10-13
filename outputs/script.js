@@ -173,15 +173,24 @@ if (appointmentForm) {
   host.className = 'ai-doctor';
   host.innerHTML = `
     <section class="ai-panel" id="ai-doctor-panel" aria-labelledby="ai-title" aria-hidden="true" inert>
-      <header class="ai-panel-head"><span class="ai-mini-orb" aria-hidden="true"></span><div><p>CLINIC INFORMATION</p><h2 id="ai-title">AI Doctor</h2></div><button class="ai-close" type="button" aria-label="Close AI Doctor">×</button></header>
+      <header class="ai-panel-head"><div class="ai-mini-orb ai-crystal-host" aria-hidden="true"></div><div><p>CLINIC INFORMATION</p><h2 id="ai-title">AI Doctor</h2></div><button class="ai-close" type="button" aria-label="Close AI Doctor">×</button></header>
       <p class="ai-disclaimer">I’m an AI assistant, not a doctor. I can share general information about this website and the clinic, but I can’t diagnose or recommend treatment. For personal advice, contact the clinic. For urgent symptoms, seek emergency care.</p>
       <div class="ai-messages" role="log" aria-live="polite" aria-relevant="additions text"><p class="ai-message ai-assistant">Hello. I can help you find clinic information or explain the services listed on this website. What would you like to know?</p></div>
       <p class="ai-status" role="status" aria-live="polite"></p>
       <form class="ai-form"><label class="ai-sr-only" for="ai-question">Your question</label><textarea id="ai-question" name="question" rows="1" maxlength="1200" placeholder="Ask a general question…" required></textarea><button type="submit" aria-label="Send question">↑</button></form>
       <p class="ai-privacy">Please don’t share personal or sensitive health details.</p>
     </section>
-    <button class="ai-launcher" type="button" aria-expanded="false" aria-controls="ai-doctor-panel"><span class="ai-orb" aria-hidden="true"><i></i></span><span>AI Doctor</span></button>`;
+    <button class="ai-launcher" type="button" aria-expanded="false" aria-controls="ai-doctor-panel"><div class="ai-orb ai-crystal-host" aria-hidden="true"></div><span>AI Doctor</span></button>`;
   document.body.append(host);
+
+  const crystalStyles = document.createElement('link');
+  crystalStyles.rel = 'stylesheet';
+  crystalStyles.href = 'ai-doctor-icon.css';
+  document.head.append(crystalStyles);
+  const crystalScript = document.createElement('script');
+  crystalScript.src = 'ai-doctor-icon.js';
+  crystalScript.defer = true;
+  document.body.append(crystalScript);
 
   const panel = host.querySelector('.ai-panel');
   const launcher = host.querySelector('.ai-launcher');
