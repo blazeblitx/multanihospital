@@ -75,7 +75,7 @@ if (appointmentFormRoot) {
       <form id="appointment-form" className="appointment-form appointment-form-reflective" onSubmit={submitAppointment}>
         <p className="contact-label">PLAN YOUR VISIT · JALANDHAR</p>
         <h2>Appointment enquiry</h2>
-        <p className="appointment-form-intro">Share a few details and the clinic team can follow up about your enquiry.</p>
+        <p className="appointment-form-intro">Share only the details needed for your enquiry. Your email app will open a draft for you to review and send. Do not include health information.</p>
         <label htmlFor="name">Name</label>
         <input id="name" name="name" autoComplete="name" required />
         <label htmlFor="email">Email</label>
@@ -84,6 +84,7 @@ if (appointmentFormRoot) {
         <input id="phone" name="phone" type="tel" autoComplete="tel" />
         <label htmlFor="query">Your query</label>
         <textarea id="query" name="query" rows="4" required defaultValue={requestedService ? `I'm interested in: ${requestedService}` : ''} />
+        <label className="form-consent"><input type="checkbox" name="privacy-consent" required /> <span>I have read the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and understand this form prepares an email draft. I will not include sensitive health information.</span></label>
         <button className="button button-dark" type="submit">Prepare email <span>↗</span></button>
         <small>Your email app will open with a draft for you to review and send. Please don’t include sensitive health information.</small>
       </form>

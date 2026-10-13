@@ -7,6 +7,7 @@
 .appointment-form-reflective h2{font-size:24px;margin:0 0 5px}
 .appointment-form-intro{margin:0 0 5px;color:#536f84;font-size:12px;line-height:1.6}
 .appointment-form-reflective label{font-size:10px;color:#426c85}
+.appointment-form-reflective .form-consent{display:flex;align-items:flex-start;gap:9px;font-size:12px;line-height:1.5;color:#173c58;letter-spacing:0}.appointment-form-reflective .form-consent input{width:18px;height:18px;flex:none;margin:1px 0;accent-color:#075b83}.appointment-form-reflective .form-consent a{color:#075b83;text-decoration:underline;text-underline-offset:2px}.appointment-form-reflective :focus-visible{outline:3px solid #075b83;outline-offset:3px}
 .appointment-form-reflective input,.appointment-form-reflective textarea{padding:10px 12px;border-color:#a9c9d8;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border-radius:7px;font-size:13px}
 .appointment-form-reflective input:focus,.appointment-form-reflective textarea:focus{outline:2px solid #1687b6;outline-offset:1px;background:#fff}
 .appointment-form-reflective textarea{min-height:76px}

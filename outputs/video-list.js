@@ -34,7 +34,7 @@ if(carousel&&Array.isArray(window.clinicReels)&&window.clinicReels.length){
   const videoFrame=(reel,index)=>{
     const frame=document.createElement('iframe');
     frame.title=`Multani Plastic Surgery Centre Facebook Reel ${index+1}: ${labelFor(reel,index)}`;
-    frame.src=`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(reelUrl(reel))}&show_text=false&height=700&width=394`;
+    frame.dataset.thirdPartySrc=`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(reelUrl(reel))}&show_text=false&height=700&width=394`;
     frame.allow='autoplay; encrypted-media; picture-in-picture; web-share';frame.allowFullscreen=true;frame.loading='eager';frame.referrerPolicy='strict-origin-when-cross-origin';return frame;
   };
   const playButton=(reel,index)=>{
@@ -43,7 +43,7 @@ if(carousel&&Array.isArray(window.clinicReels)&&window.clinicReels.length){
     const kicker=document.createElement('span');kicker.className='lenticular-kicker';kicker.textContent=`FACEBOOK REEL · ${String(index+1).padStart(2,'0')}`;
     const title=document.createElement('span');title.className='lenticular-title';title.textContent=labelFor(reel,index);
     const play=document.createElement('span');play.className='lenticular-play';play.textContent='Play Reel';button.append(kicker,title,play);
-    button.addEventListener('click',()=>{const media=button.closest('.lenticular-media');media.replaceChildren(videoFrame(reel,index));media.classList.add('is-playing');},{once:true});return button;
+    button.addEventListener('click',()=>{const media=button.closest('.lenticular-media');const frame=videoFrame(reel,index);const choice=localStorage.getItem('multani-third-party-choice-v1');if(choice==='accepted'){frame.src=frame.dataset.thirdPartySrc;frame.removeAttribute('data-third-party-src');media.replaceChildren(frame);media.classList.add('is-playing');return;}if(choice==='declined'){const note=document.createElement('p');note.className='medical-note';note.textContent='Allow optional third-party content in the privacy choices to play this video.';media.replaceChildren(note);return;}media.replaceChildren(frame);media.classList.add('is-playing');},{once:true});return button;
   };
   const makeCard=(index,position)=>{
     const reel=window.clinicReels[index];const card=document.createElement('article');card.className=`lenticular-card is-${position}`;card.setAttribute('aria-hidden',position==='center'?'false':'true');

@@ -1,0 +1,329 @@
+/* Shared healthcare visual system. Loaded last so every page uses the same accessible tokens and component finish. */
+:root {
+  --paper: #f8fbfd;
+  --ink: #102b49;
+  --muted: #52697e;
+  --line: #d5e3ed;
+  --sage: #eaf4fb;
+  --green: #0b75ae;
+  --clinic-blue: #087eae;
+  --clinic-navy: #123b5d;
+  --clinic-surface: #ffffff;
+  --clinic-soft: #eff7fb;
+  --clinic-radius: 14px;
+  --clinic-shadow: 0 18px 48px rgba(16, 43, 73, .08);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 108px;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  box-shadow: 0 1px 0 rgba(16, 43, 73, .08);
+}
+
+.header .logo-window img {
+  object-fit: contain;
+}
+
+.main-nav {
+  line-height: 1.35;
+}
+
+.main-nav a,
+.main-nav button {
+  transition: color .2s ease, background-color .2s ease;
+}
+
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(58px, 7vw, 94px);
+  background:
+    radial-gradient(ellipse at 88% 0%, rgba(180, 224, 243, .34), transparent 38%),
+    linear-gradient(120deg, #edf7fc 0%, #e5f2f9 55%, #deeff8 100%);
+}
+
+.page-hero h1 {
+  max-width: 16ch;
+  font-size: clamp(42px, 5.4vw, 72px);
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.page-lead {
+  max-width: 66ch;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+
+.page-content {
+  padding-block: clamp(58px, 7vw, 96px);
+}
+
+.page-band {
+  padding-block: clamp(52px, 6vw, 80px);
+}
+
+.content-main p,
+.page-band p:not(.eyebrow),
+.service-detail-description,
+.treatment-explainer > p:not(.eyebrow):not(.medical-note) {
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.82;
+  text-wrap: pretty;
+}
+
+.home-section-title h2,
+.content-main h2,
+.page-band h2,
+.page-cta h2 {
+  text-wrap: balance;
+}
+
+.eyebrow,
+.section-kicker {
+  line-height: 1.5;
+  color: #176d99;
+}
+
+.button,
+.nav-cta,
+.home-slide-arrow,
+.home-slide-dots button,
+.menu-toggle,
+.nav-dropdown-toggle,
+.video-gallery-arrow,
+.video-gallery-play {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button {
+  min-height: 46px;
+  border-radius: 4px;
+}
+
+.button-dark {
+  background: var(--clinic-navy);
+}
+
+.button-dark:hover {
+  background: #0c456d;
+}
+
+.home-slider {
+  border-radius: 4px;
+  box-shadow: var(--clinic-shadow);
+}
+
+.home-slide-copy {
+  max-width: 820px;
+}
+
+.home-slide-copy h2 {
+  text-wrap: balance;
+}
+
+.home-service,
+.service-detail-card,
+.service-list-card,
+.feedback-card,
+.journal-preview,
+.blog-card,
+.contact-primary,
+.contact-card,
+.social-preview {
+  box-shadow: 0 8px 28px rgba(16, 43, 73, .035);
+}
+
+.home-service,
+.service-detail-card,
+.service-list-card,
+.feedback-card,
+.journal-preview,
+.blog-card {
+  transition:
+    transform .24s ease,
+    border-color .24s ease,
+    background-color .24s ease,
+    box-shadow .24s ease;
+}
+
+.home-service:hover,
+.service-detail-card:hover,
+.service-list-card:hover,
+.journal-preview:hover,
+.blog-card:hover {
+  border-color: #b7d6e6;
+  box-shadow: 0 14px 34px rgba(16, 43, 73, .08);
+}
+
+.service-detail-card {
+  background: var(--clinic-surface);
+  scroll-margin-top: 126px;
+}
+
+.service-detail-card h3 a,
+.home-service-main {
+  text-decoration-thickness: 1px;
+  text-underline-offset: .18em;
+}
+
+.medical-note {
+  padding: 14px 17px;
+  border-left: 3px solid #1387b5;
+  background: #eff7fb;
+  color: #405f74;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.content-visual {
+  border-radius: 6px 48px 6px 6px;
+  box-shadow: var(--clinic-shadow);
+}
+
+.contact-primary {
+  border: 1px solid var(--line);
+  border-radius: var(--clinic-radius);
+}
+
+.contact-fact {
+  padding-block: 22px;
+}
+
+#appointment-form-root input,
+#appointment-form-root textarea,
+#appointment-form-root select {
+  min-height: 48px;
+  border-radius: 4px;
+}
+
+#appointment-form-root textarea {
+  min-height: 120px;
+}
+
+footer {
+  background: var(--clinic-navy);
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #087eae;
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  html {
+    scroll-padding-top: 82px;
+  }
+
+  .page-hero {
+    padding-block: clamp(50px, 8vw, 72px);
+  }
+
+  .page-hero h1 {
+    max-width: 19ch;
+    font-size: clamp(40px, 7vw, 58px);
+  }
+
+  .content-main p,
+  .page-band p:not(.eyebrow),
+  .service-detail-description,
+  .treatment-explainer > p:not(.eyebrow):not(.medical-note) {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 650px) {
+  html {
+    scroll-padding-top: 72px;
+  }
+
+  .page-hero {
+    padding-block: 48px 52px;
+  }
+
+  .page-hero h1 {
+    max-width: 18ch;
+    font-size: clamp(38px, 10vw, 50px);
+    line-height: 1.08;
+  }
+
+  .page-lead {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .page-content {
+    padding-block: 54px;
+  }
+
+  .page-band {
+    padding-block: 48px;
+  }
+
+  .content-main p,
+  .page-band p:not(.eyebrow),
+  .service-detail-description,
+  .treatment-explainer > p:not(.eyebrow):not(.medical-note) {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .home-slider {
+    border-radius: 3px;
+  }
+
+  .home-service,
+  .service-detail-card,
+  .service-list-card,
+  .feedback-card,
+  .journal-preview,
+  .blog-card {
+    box-shadow: 0 6px 20px rgba(16, 43, 73, .045);
+  }
+
+  .button,
+  .nav-dropdown-toggle,
+  .home-slide-arrow,
+  .video-gallery-arrow,
+  .video-gallery-play,
+  .ai-form button {
+    min-height: 44px;
+  }
+
+  .footer-top {
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
